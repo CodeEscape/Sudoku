@@ -44,6 +44,14 @@ public class SudokuForm extends JPanel {
 
 		setBackground(new Color(204, 224, 255));
 
+
+		componentsOdBoard();
+		layoutComponents();
+
+	}
+
+	public void componentsOdBoard() {
+
 		Color lightRed = new Color(255, 230, 230);
 		novaIgra = new JButton("Nova igra!");
 		novaIgra.setBackground(lightRed);
@@ -53,39 +61,14 @@ public class SudokuForm extends JPanel {
 		preveri.setBackground(lightRed);
 		cas = new JLabel("" + "" + "");
 
-		izbTezavnost = new JLabel("Izberite težavnost");
+		izbTezavnost = new JLabel("Izberite teÅ¾avnost");
 		prijaviSe = new JLabel("Prijava uporabnika");
-		//uporabnik = new PrijavaUporabnika(MainFrame);
-
-		//sudokuBoard = new SudokuBoard(SudokuForm);
 
 		tezavnost = new JComboBox();
 		tezavnost.setBackground(lightRed);
-		DefaultComboBoxModel tezavnostModel = new DefaultComboBoxModel();
-		tezavnostModel.addElement("Lahko");
-		tezavnostModel.addElement("Srednje");
-		tezavnostModel.addElement("Tezko");
-		tezavnost.setModel(tezavnostModel);
-		tezavnost.setSelectedIndex(0);	
+		setDifficultyInCombo();
 
-		/*
-		if(mainFrame.isReloaded == false) {
-			tezavnostModel.addElement("Lahko");
-			tezavnostModel.addElement("Srednje");
-			tezavnostModel.addElement("Tezko");
-			tezavnost.setModel(tezavnostModel);
-			tezavnost.setSelectedIndex(0);	
-		}else {
-			tezavnost.setSelectedIndex(novIndex(getTezavnost())); 
-			tezavnostModel.addElement("Lahko");
-			tezavnostModel.addElement("Srednje");
-			tezavnostModel.addElement("Tezko");
-			tezavnost.setModel(tezavnostModel);
-		}
-		 */
 		tezavnost.setPreferredSize(new Dimension(100, 25));
-
-
 
 		prijava.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -103,40 +86,40 @@ public class SudokuForm extends JPanel {
 					JOptionPane.showMessageDialog(SudokuForm.this, "Niso izpolnjena vsa polja, izpolnite vsa polja in preverite ponovno.",
 							"Prazna polja.", JOptionPane.ERROR_MESSAGE);
 				}
-
 			}
 		});
 
 		novaIgra.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//mainFrame.isReloaded = true;
 				mainFrame.reloadSudokuBoard();
 				System.out.println("novaIgra");
-				//timeStart();
-				//new SudokuBoard();
-				//sudokuBoard.remove(paintingChild);
-				//sudokuBoard.board(sudokuBoard.stevilaIgre(), sudokuBoard.nastaviTezavnost(getTezavnost()));
-				//sudokuBoard.revalidate();
-				//mainFrame.remove(sudokuBoard);
-				//mainFrame.add(sudokuBoard, BorderLayout.WEST);
-				//mainFrame.revalidate();
-				//mainFrame.repaint();
-				//mainFrame.sudokuBoard.remove(sudokuBoard);
 			}
 		});
+	}
 
-		layoutComponents();
+	public void setDifficultyInCombo() {
+		DefaultComboBoxModel tezavnostModel = new DefaultComboBoxModel();
+		setIndexInCombo();
+		tezavnostModel.addElement("Lahko");
+		tezavnostModel.addElement("Srednje");
+		tezavnostModel.addElement("Tezko");
+		tezavnost.setModel(tezavnostModel);
 
+		//tezavnost.setSelectedIndex(novIndex(getTezavnost()));	
+	}
+
+	public void setIndexInCombo() {
+		if(tezavnost.getSelectedItem() == null) {
+			
+		}else {
+		tezavnost.setSelectedIndex(novIndex(getTezavnost()));	
+		}
 	}
 
 	public String getTezavnost() {
 		System.out.println(tezavnost.getSelectedItem());
-		System.out.println("getTezavnost");
-		//if()   mogoèe lahko z booleanom
 		return (String)tezavnost.getSelectedItem();
 	}
-
-
 
 	public void setTezavnost(JComboBox string) {
 		this.tezavnost = string;
@@ -145,17 +128,23 @@ public class SudokuForm extends JPanel {
 	public int novIndex(String string) {
 		int index = 0;
 		String izbranIndex = string;
-
-		switch(izbranIndex) {
-		case "Lahko":
-			index = 0;
-			break;
-		case "Srednje":
-			index = 1;
-			break;
-		case "Tezko":
-			index = 2;
-			break;
+		if(izbranIndex == null || izbranIndex.isEmpty()) {
+		
+		}else {
+			switch(izbranIndex) {
+			case "Lahko":
+				index = 0;
+				break;
+			case "Srednje":
+				index = 1;
+				break;
+			case "Tezko":
+				index = 2;
+				break;
+			default:
+				return 0;
+			}
+			
 		}
 		return index;
 	}
@@ -244,11 +233,6 @@ public class SudokuForm extends JPanel {
 		gc.insets = new Insets(0, 0, 0, 10);
 		gc.anchor = GridBagConstraints.LINE_END;
 		add(cas, gc);
-
-	}
-
-	public void setTezavnost(String tezavnost2) {
-		String tezavnost = tezavnost2;
 
 	}
 }
