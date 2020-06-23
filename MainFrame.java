@@ -39,13 +39,14 @@ public class MainFrame extends JFrame{
 		//isReloaded = true;
 		//reval<idate();
 		String novaTezavnost = (sudokuForm.getTezavnost());
-		//System.out.println("Ok");
-		remove(sudokuBoard);
+		//remove(sudokuBoard);
 		//sudokuForm.setTezavnost(novaTezavnost);
-		sudokuBoard.board(sudokuBoard.stevilaIgre(), sudokuBoard.nastaviTezavnost(novaTezavnost));
+		//sudokuBoard.board(sudokuBoard.stevilaIgre(), sudokuBoard.nastaviTezavnost(novaTezavnost));
 		//System.out.println("reload");
+		sudokuBoard.nastaviTezavnost(novaTezavnost);
+		sudokuBoard = new SudokuBoard(this);
+		//dokuBoard.nastaviTezavnost(novaTezavnost);
 		add(sudokuBoard, BorderLayout.WEST);
-		//
 		SwingUtilities.updateComponentTreeUI(sudokuBoard);
 		sudokuForm.setTezavnost(novaTezavnost);
 	}
